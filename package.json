@@ -1,0 +1,23 @@
+{
+  "name": "wedding",
+  "version": "1.0.0",
+  "description": "Do something at a wedding",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "nannongrousong",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-multiparty": "^2.2.0",
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "log4js": "^2.6.1",
+    "mysql": "^2.15.0"
+  }
+}
