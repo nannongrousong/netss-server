@@ -7,8 +7,17 @@ const addSysRole = async ({ RoleName, Remark }) => {
     if (!RoleName) {
         throw new Error('缺少角色名称')
     }
-    let sql = 'insert into tbl_role(name,remark) values(?,?)'
-    let params = [RoleName, Remark]
+
+    let sql = 'select count(1) as count from tbl_role where name = ?'
+    let params = [RoleName]
+
+    let data = await dbHelper.executeSql(sql, params)
+    if (data[0].count > 0) {
+        throw new Error('角色名称不允许重复！')
+    }
+
+    sql = 'insert into tbl_role(name,remark) values(?,?)'
+    params = [RoleName, Remark]
 
     await dbHelper.executeSql(sql, params);
 };
@@ -40,17 +49,18 @@ const editSysRole = async ({ RoleID, RoleName, Remark }) => {
         throw new Error('缺少角色名称')
     }
 
-    let sql = 'update tbl_role set name=?,remark=? where role_id=?'
-    let params = [RoleName, Remark, RoleID]
+    let sql = 'select count(1) as count from tbl_role where name = ? and role_id != ?'
+    let params = [RoleName, RoleID]
 
-    try {
-        await dbHelper.executeSql(sql, params);
-    } catch (err) {
-        if (err.code == 'ER_DUP_ENTRY') {
-            throw new Error('角色名称不允许重复，请重新再试！');
-        }
-        throw err || new Error(errorInfo.DB_OPER_ERROR)
+    let data = await dbHelper.executeSql(sql, params);
+    if (data[0].count > 0) {
+        throw new Error('角色名称不允许重复！')
     }
+
+    sql = 'update tbl_role set name=?,remark=? where role_id=?'
+    params = [RoleName, Remark, RoleID]
+
+    await dbHelper.executeSql(sql, params);
 };
 
 module.exports = {

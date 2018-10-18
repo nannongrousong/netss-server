@@ -35,6 +35,14 @@ const addSysUser = async ({ IsValid, LoginName, NickName, Password, Role }) => {
         throw new Error('缺少角色')
     }
 
+    let sql = 'select count(1) as count from tbl_user where login_name = ?'
+    let params = [LoginName]
+
+    let data = await dbHelper.executeSql(sql, params)
+    if (data[0].count > 0) {
+        throw new Error('登录名称不允许重复！');
+    }
+
     let sqlList = [{
         sql: 'insert into tbl_user(login_name,nick_name,is_valid,password) values(?,?,?,?)',
         params: [LoginName, NickName, IsValid, encryptData(Password)]
@@ -86,6 +94,14 @@ const editSysUser = async ({ UserID, LoginName, NickName, IsValid, Role }) => {
         throw new Error('缺少角色')
     }
 
+    let sql = 'select count(1) as count from tbl_user where login_name = ? and user_id != ?'
+    let params = [LoginName, UserID]
+
+    let data = await dbHelper.executeSql(sql, params)
+    if (data[0].count > 0) {
+        throw new Error('登录名称不允许重复！');
+    }
+
     let sqlList = [{
         sql: 'update tbl_user set login_name=?,nick_name=?,is_valid=? where user_id=?',
         params: [LoginName, NickName, IsValid, UserID]
@@ -104,14 +120,7 @@ const editSysUser = async ({ UserID, LoginName, NickName, IsValid, Role }) => {
         })
     }
 
-    try {
-        await dbHelper.executeTransaction(sqlList)
-    } catch (err) {
-        if (err.code == 'ER_DUP_ENTRY') {
-            throw new Error('登录名称不允许重复，请重新再试！');
-        }
-        throw err;
-    }
+    await dbHelper.executeTransaction(sqlList)
 }
 
 const checkUser = async (loginName, password) => {
