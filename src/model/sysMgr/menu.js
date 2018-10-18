@@ -45,10 +45,6 @@ const delSysMenu = async (menuID) => {
     let data = await dbHelper.executeSql(sql, params);
     let parentID = data[0].parent_id;
 
-    if (parentID == 0) {
-        throw new Error('根节点不允许删除！');
-    }
-
     let sqlList = [{
         sql: 'delete from tbl_sys_menu where menu_id = ?',
         params: [menuID]
