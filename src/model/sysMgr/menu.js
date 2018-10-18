@@ -65,18 +65,27 @@ const editSysMenu = async ({ MenuID, Icon, ParentID, Path, Title, Type, Remark, 
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
-    //  当前节点的
+    //  检查当前节点的子节点
     let sql = 'select count(1) as count from tbl_sys_menu where parent_id = ?'
     let params = [MenuID]
 
-    let res  = await dbHelper.executeSql(sql, params);
+    let res = await dbHelper.executeSql(sql, params);
 
-    if(res[0].count == 0 && !Path) {
+    if (res[0].count == 0 && !Path) {
         throw new Error({ node: '缺少导航路径', resource: '缺少资源ID' }[Type]);
     }
 
     if (!Title) {
         throw new Error({ node: '缺少导航名称', resource: '缺少资源名称' }[Type]);
+    }
+
+    //  检查path
+    sql = 'select count(1) as count from tbl_sys_menu where path = ? and menu_id != ?'
+    params = [Path, MenuID]
+
+    let data = await dbHelper.executeSql(sql, params);
+    if (data[0].count > 0) {
+        throw new Error('路径值必须唯一！');
     }
 
     sql = 'update tbl_sys_menu set icon=?,path=?,title=?,remark=?,priority=?,parent_id=? where menu_id=?';
