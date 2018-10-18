@@ -1,4 +1,5 @@
 const path = require('path');
+//  true为本地开发，log会打在控制台;false为线上发布，log会打在文件
 const debugMode = true;
 
 module.exports = {
