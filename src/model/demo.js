@@ -10,8 +10,7 @@ const listUser = async ({ index, size }) => {
     return [count[0].count, recordList];
 }
 
-const addUser = async (userInfo) => {
-    let { Name = '', Age = 0, Address = '', Tag = '' } = userInfo;
+const addUser = async ({ Name = '', Age, Address = '', Tag = '' }) => {
     let sqlParams = [Name, Age, Address, Tag];
 
     await dbHelper.executeSql('insert into tbl_test_user(name,age,address,tag) values(?,?,?,?)', sqlParams)
