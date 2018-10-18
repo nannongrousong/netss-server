@@ -7,7 +7,7 @@ const listSysMenu = async () => {
 };
 
 const addSysMenu = async ({ Icon, ParentID, Path, Title, Type, Remark }) => {
-    if (!ParentID || !Type) {
+    if (ParentID == undefined || !Type) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -36,7 +36,7 @@ const addSysMenu = async ({ Icon, ParentID, Path, Title, Type, Remark }) => {
 };
 
 const delSysMenu = async (menuID) => {
-    if (!menuID) {
+    if (menuID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -61,20 +61,26 @@ const delSysMenu = async (menuID) => {
 };
 
 const editSysMenu = async ({ MenuID, Icon, ParentID, Path, Title, Type, Remark, Priority }) => {
-    if (!MenuID || !ParentID) {
+    if (MenuID == undefined || ParentID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
-    if (!Path) {
-        throw new Error({ node: '缺少导航名称路径', resource: '缺少资源ID' }[Type]);
+    //  当前节点的
+    let sql = 'select count(1) as count from tbl_sys_menu where parent_id = ?'
+    let params = [MenuID]
+
+    let res  = await dbHelper.executeSql(sql, params);
+
+    if(res[0].count == 0 && !Path) {
+        throw new Error({ node: '缺少导航路径', resource: '缺少资源ID' }[Type]);
     }
 
     if (!Title) {
         throw new Error({ node: '缺少导航名称', resource: '缺少资源名称' }[Type]);
     }
 
-    let sql = 'update tbl_sys_menu set icon=?,path=?,title=?,remark=?,priority=?,parent_id=? where menu_id=?';
-    let params = [Icon, Path, Title, Remark, Priority, ParentID, MenuID]
+    sql = 'update tbl_sys_menu set icon=?,path=?,title=?,remark=?,priority=?,parent_id=? where menu_id=?';
+    params = [Icon, Path, Title, Remark, Priority, ParentID, MenuID]
 
     await dbHelper.executeSql(sql, params);
 };

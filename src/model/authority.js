@@ -2,7 +2,7 @@ const dbHelper = require('../common/dbHelper');
 const errorInfo = require('../common/errorInfo');
 
 const listUserMenu = async (userID) => {
-    if (!userID) {
+    if (userID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -16,7 +16,7 @@ const listUserMenu = async (userID) => {
 }
 
 const saveRoleMenu = async ({ roleID, menuIDs }) => {
-    if (!roleID) {
+    if (roleID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -36,7 +36,7 @@ const saveRoleMenu = async ({ roleID, menuIDs }) => {
 };
 
 const listRoleMenu = async (roleID) => {
-    if (!roleID) {
+    if (roleID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 

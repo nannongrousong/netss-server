@@ -14,7 +14,7 @@ const addSysRole = async ({ RoleName, Remark }) => {
 };
 
 const delSysRole = async (roleID) => {
-    if (!roleID) {
+    if (roleID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -32,7 +32,7 @@ const delSysRole = async (roleID) => {
 };
 
 const editSysRole = async ({ RoleID, RoleName, Remark }) => {
-    if (!RoleID) {
+    if (RoleID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 

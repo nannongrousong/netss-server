@@ -15,7 +15,7 @@ const listSysUser = async () => {
 }
 
 const addSysUser = async ({ IsValid, LoginName, NickName, Password, Role }) => {
-    if (!IsValid) {
+    if (IsValid == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -54,7 +54,7 @@ const addSysUser = async ({ IsValid, LoginName, NickName, Password, Role }) => {
 }
 
 const delSysUser = async (userID) => {
-    if (!userID) {
+    if (userID == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -70,7 +70,7 @@ const delSysUser = async (userID) => {
 }
 
 const editSysUser = async ({ UserID, LoginName, NickName, IsValid, Role }) => {
-    if (!UserID || !IsValid) {
+    if (UserID == undefined || IsValid == undefined) {
         throw new Error(errorInfo.PARAM_INCOMPLETE)
     }
 
@@ -130,7 +130,7 @@ const checkUser = async (loginName, password) => {
 }
 
 const getUserInfo = async (userID) => {
-    if (!userID) {
+    if (userID == undefined) {
         throw errorInfo.PARAM_INCOMPLETE
     }
 
@@ -145,7 +145,7 @@ const getUserInfo = async (userID) => {
 }
 
 const resetUserPwd = async ({ UserID }) => {
-    if (!UserID) {
+    if (UserID == undefined) {
         throw errorInfo.PARAM_INCOMPLETE
     }
 
