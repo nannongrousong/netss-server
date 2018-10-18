@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 app.use(expressJwt({
     secret: serverConfig.secret
 }).unless(req => (
-    req.originalUrl == '/Sys_Auth/CMS_Login' ||
-    (req.method == 'GET' && req.originalUrl.indexOf('/Attach') == 0)
+    req.originalUrl.indexOf('/Sys_Auth/CMS_Login') != -1 ||
+    (req.method == 'GET' && req.originalUrl.indexOf('/Attach') != -1)
 )));
 
 app.all('*', (req, res, next) => {
