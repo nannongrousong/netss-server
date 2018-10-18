@@ -131,7 +131,7 @@ const checkUser = async (loginName, password) => {
 
 const getUserInfo = async (userID) => {
     if (userID == undefined) {
-        throw errorInfo.PARAM_INCOMPLETE
+        throw new Error(errorInfo.PARAM_INCOMPLETE);
     }
 
     let sql = `select login_name as LoginName,nick_name as NickName,is_valid as IsValid,group_concat(role.name) as RoleName from tbl_user user
@@ -146,7 +146,7 @@ const getUserInfo = async (userID) => {
 
 const resetUserPwd = async ({ UserID }) => {
     if (UserID == undefined) {
-        throw errorInfo.PARAM_INCOMPLETE
+        throw new Error(errorInfo.PARAM_INCOMPLETE);
     }
 
     let sql = 'update tbl_user set password = ? where user_id = ?';

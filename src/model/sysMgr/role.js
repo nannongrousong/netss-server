@@ -49,7 +49,7 @@ const editSysRole = async ({ RoleID, RoleName, Remark }) => {
         if (err.code == 'ER_DUP_ENTRY') {
             throw new Error('角色名称不允许重复，请重新再试！');
         }
-        throw err;
+        throw err || new Error(errorInfo.DB_OPER_ERROR)
     }
 };
 

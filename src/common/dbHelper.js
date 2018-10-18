@@ -32,6 +32,7 @@ const executeSqlWithCon = (sql, params, conn) => (
             values: params
         }, (err, res) => {
             if (err) {
+                console.error(err);
                 reject(new Error(errorInfo.DB_OPER_ERROR));
             } else {
                 resolve(res);
@@ -52,6 +53,7 @@ const executeTransaction = (sqlList, attachParams) => (
 
         connection.beginTransaction(async (err) => {
             if (err) {
+                console.error(err);
                 console.error('beginTransaction.error');
                 console.error('sqlList', sqlList);
                 return reject(new Error(errorInfo.DB_OPER_ERROR));
@@ -83,7 +85,7 @@ const executeTransaction = (sqlList, attachParams) => (
             connection.commit((err) => {
                 if (err) {
                     connection.rollback(() => {
-                        console.error('执行事务错误。');
+                        console.error('执行事务错误。', err);
                         console.error('sqllist', sqlList);
                         reject(new Error(errorInfo.DB_OPER_ERROR));
                     })
