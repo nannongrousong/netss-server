@@ -13,7 +13,7 @@ module.exports = {
     secret: 'abcdefgh12345678',
     debugMode,
     homePath: path.resolve(__dirname, '../../'),
-    publicPath: debugMode ? 'http://localhost:10001' : 'cdn..',
+    publicPath: debugMode ? 'http://localhost:10001' : 'http://nannongrousong.xin/netss/api',
     //  用户重置密码
     defaultPwd: 'passok'
 }
