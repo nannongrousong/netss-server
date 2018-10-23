@@ -1,7 +1,7 @@
 // resolve arguments
-let argvs = process.argv.splice(2);
-let argObj = argvs.reduce((prev, curr) => {
-    let [k, v] = curr.split('=');
+const argvs = process.argv.splice(2);
+const argObj = argvs.reduce((prev, curr) => {
+    const [k, v] = curr.split('=');
     prev[k] = v;
     return prev;
 }, {});
