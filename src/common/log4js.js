@@ -6,7 +6,7 @@ module.exports = {
         const errorLogger = log4js.getLogger('error')
         const infoLogger = log4js.getLogger('info')
         log4js.useLogger(app, traceLogger);
-        if (!global.debugMode) {
+        if (process.env.NODE_ENV == 'production') {
             console.log = infoLogger.info.bind(infoLogger);
             console.error = errorLogger.error.bind(errorLogger);
         }
