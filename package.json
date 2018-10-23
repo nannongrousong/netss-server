@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Do something at a wedding",
   "scripts": {
-    "start": "nodemon ./src/index.js"
+    "start-dev": "nodemon ./src/index.js env=devlopment",
+    "start-prod": "nodemon ./src/index.js env=production"
   },
   "keywords": [],
   "author": "nannongrousong",

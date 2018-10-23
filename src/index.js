@@ -1,3 +1,14 @@
+// resolve arguments
+let argvs = process.argv.splice(2);
+let argObj = argvs.reduce((prev, curr) => {
+    let [k, v] = curr.split('=');
+    prev[k] = v;
+    return prev;
+}, {});
+
+const { env = 'devlopment' } = argObj;
+process.env.NODE_ENV = env;
+
 const express = require('express');
 const app = express();
 const http = require('http');

@@ -1,6 +1,6 @@
 const path = require('path');
-//  true为本地开发，log会打在控制台;false为线上发布，log会打在文件
-const debugMode = true;
+//  本地开发，log会打在控制台;线上发布，log会打在文件
+const debugMode = process.env.NODE_ENV == 'devlopment';
 
 module.exports = {
     serverPort: 10001,
@@ -11,7 +11,7 @@ module.exports = {
         port: '',
         database: ''
     },
-    secret: 'abcdefgh12345678',
+    secret: '',
     debugMode,
     homePath: path.resolve(__dirname, '../../'),
     publicPath: debugMode ? 'http://localhost:10001' : 'http://nannongrousong.xin/netss/api',
