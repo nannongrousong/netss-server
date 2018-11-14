@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router();
 const { secret, publicPath } = require('../config/global');
 const jwt = require('jsonwebtoken');
-const userM = require('../model/sysMgr/user')
-const authorityM = require('../model/authority');
+const userM = require('../service/sysMgr/user')
+const authorityM = require('../service/authority');
 
 const { getErrorInfo, encryptData, getUserIDByHeaders } = require('../common/utils');
 

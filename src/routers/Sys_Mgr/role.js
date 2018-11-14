@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const roleM = require('../../model/sysMgr/role');
+const roleM = require('../../service/sysMgr/role');
 const { getErrorInfo } = require('../../common/utils');
 
 router.get('/', async (req, res) => {

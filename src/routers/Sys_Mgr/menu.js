@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const menuM = require('../../model/sysMgr/menu');
+const menuM = require('../../service/sysMgr/menu');
 const { getErrorInfo } = require('../../common/utils');
 const { publicPath } = require('../../config/global')
 

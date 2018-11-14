@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const authorityM = require('../../model/authority');
+const authorityM = require('../../service/authority');
 
 const { getErrorInfo } = require('../../common/utils');
 

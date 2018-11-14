@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const userM = require('../../model/sysMgr/user');
+const userM = require('../../service/sysMgr/user');
 const { getErrorInfo, getUserIDByHeaders } = require('../../common/utils');
 
 router.post('/', async (req, res) => {

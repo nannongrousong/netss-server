@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const demoM = require('../model/demo')
+const demoM = require('../service/demo')
 const { getErrorInfo } = require('../common/utils');
 
 router.get('/Table', async (req, res) => {
